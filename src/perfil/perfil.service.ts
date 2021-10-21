@@ -19,21 +19,18 @@ export class PerfilService {
   create(data: CreatePerfilDto) {
     return this.prisma.perfil.create({
       data,
-      include:this._include
     });
   }
 
   findAll(id: number) {
     return this.prisma.perfil.findMany({
-      where: {userId:id},
-      include:this._include,
+      where: {userId:id}
     });
   }
 
   findOne(id: number) {
     return this.prisma.perfil.findUnique({
-      where:    {id},
-      include:  this._include,
+      where:    {id}
     });
   }
 
