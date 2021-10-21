@@ -16,11 +16,11 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
   controllers: [AppController],
   providers: [
     AppService,
+    PrismaService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
-    }, 
-    PrismaService
+    }
   ],
 })
 export class AppModule {}

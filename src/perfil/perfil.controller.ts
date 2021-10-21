@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, HttpCode
 import { PerfilService } from './perfil.service';
 import { CreatePerfilDto } from './dto/create-perfil.dto';
 import { UpdatePerfilDto } from './dto/update-perfil.dto';
+import { Public } from 'src/auth/public.decorator';
 
 @Controller('perfil')
 export class PerfilController {
@@ -11,13 +12,13 @@ export class PerfilController {
   create(@Body() createPerfilDto: CreatePerfilDto) {
     return this.perfilService.create(createPerfilDto);
   }
-
-  @Get()
-  findAll() {
-    return this.perfilService.findAll();
-  }
-
+  @Public()
   @Get(':id')
+  findAll(@Param('id') id: number) {
+    return this.perfilService.findAll(id);
+  }
+  @Public()
+  @Get(':id/:one')
   findOne(@Param('id') id: number) {
     return this.perfilService.findOne(id);
   }

@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, HttpCode
 import { GameGenreService } from './game-genre.service';
 import { CreateGameGenreDto } from './dto/create-game-genre.dto';
 import { UpdateGameGenreDto } from './dto/update-game-genre.dto';
+import { Public } from 'src/auth/public.decorator';
 
 @Controller('game-genre')
 export class GameGenreController {
@@ -11,12 +12,12 @@ export class GameGenreController {
   create(@Body() createGameGenreDto: CreateGameGenreDto) {
     return this.gameGenreService.create(createGameGenreDto);
   }
-
+  @Public()
   @Get()
   findAll() {
     return this.gameGenreService.findAll();
   }
-
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.gameGenreService.findOne(id);

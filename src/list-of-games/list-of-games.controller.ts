@@ -4,6 +4,7 @@ import { CreateListOfGameDto } from './dto/create-list-of-game.dto';
 import { UpdateListOfGameDto } from './dto/update-list-of-game.dto';
 import { User } from 'src/users/entities/user.entity';
 import { CurrentUser } from 'src/decorators/currentUser.decorator';
+import { Public } from 'src/auth/public.decorator';
 
 @Controller('list-of-games')
 export class ListOfGamesController {
@@ -13,12 +14,12 @@ export class ListOfGamesController {
   create(@Body() createListOfGameDto: CreateListOfGameDto) {
     return this.listOfGamesService.create(createListOfGameDto);
   }
-
-  @Get()
-  findAll(@CurrentUser() currentUser:User) {
-    return this.listOfGamesService.findAll(currentUser.id);
+  @Public()
+  @Get(':id')
+  findAll(@Param('id') id: number) {
+    return this.listOfGamesService.findAll(id);
   }
-
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.listOfGamesService.findOne(id);

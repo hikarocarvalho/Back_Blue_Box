@@ -18,7 +18,7 @@ export class UsersController {
   findAll() {
     return this.usersService.findAll();
   }
-
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.usersService.findOne(id);

@@ -11,11 +11,7 @@ export class PerfilService {
   private readonly _include = {
     user:{
       select:{
-        name:       true,
-        lastName:  true,
-        email:      true,
-        password:   true,
-        CPF:        true,
+        id:true
       }
     }
   }
@@ -27,8 +23,11 @@ export class PerfilService {
     });
   }
 
-  findAll() {
-    return this.prisma.perfil.findMany();
+  findAll(id: number) {
+    return this.prisma.perfil.findMany({
+      where: {userId:id},
+      include:this._include,
+    });
   }
 
   findOne(id: number) {
