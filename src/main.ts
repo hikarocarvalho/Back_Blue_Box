@@ -5,7 +5,9 @@ import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{
-    cors:false
+    cors:{
+      origin:['*']
+    },
   });
   app.useGlobalPipes(
     new ValidationPipe({
