@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Users {
+  id          Int       @id       @default(autoincrement())
+  name        String
+  lastName    String
+  email       String    @unique
+  password    String
+  CPF         String
+  games       ListOfGames[]
+  Perfil      Perfil[]
+}
+
+model Perfil {
+  id          Int       @id       @default(autoincrement())
+  title       String    @unique
+  image       String?
+  user        Users      @relation(fields:[userId],references:[id],onDelete:Cascade,onUpdate:Cascade)
+  userId      Int
+}
+
+model Games {
+  id          Int           @id       @default(autoincrement())
+  title       String        @unique
+  folder      String
+  description String        @db.VarChar(250)
+  year        Int           @db.Year
+  score       Int
+  youtubeUrl  String?
+  gamePlayUrl String?
+  users       ListOfGames[]
+  genre       GameGenre[]   
+}
+
+model ListOfGames {
+  id          Int       @id       @default(autoincrement())
+  user        Users     @relation(fields:[userId],references:[id],onDelete:Cascade,onUpdate:Cascade) 
+  userId      Int
+  game        Games     @relation(fields:[gameId],references:[id],onDelete:Cascade,onUpdate:Cascade)
+  gameId      Int
+}
+
+model GameGenre{
+  id          Int       @id       @default(autoincrement())
+  game        Games     @relation(fields:[gameId],references:[id],onDelete:Cascade,onUpdate:Cascade)
+  gameId      Int
+  genre      Genre    @relation(fields:[genreId],references:[id],onDelete:Cascade,onUpdate:Cascade)
+  genreId    Int    
+}
+
+model Genre{
+  id          Int       @id       @default(autoincrement()) 
+  name        String    @unique
+  game        GameGenre[]
+}

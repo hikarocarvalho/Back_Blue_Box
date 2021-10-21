@@ -1,1 +1,2 @@
-# Back_Blue_Box
+# This project is using the nestjs library;
+# I will make some documentation here, sorry but the time is runing and i need to finish this project. But I make one promisse to create this documentation and talk about my project in the future.
